@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Music Player</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #222;
+  color: white;
+  text-align: center;
+}
+
+#playlist {
+  margin: 20px;
+}
+
+.song {
+  background: #444;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.song:hover {
+  background: #666;
+}
+
+#nowPlaying {
+  margin-top: 20px;
+  padding: 10px;
+  background: #333;
+}
+</style>
+
+</head>
+<body>
+
+<h1>🎵 Music Player</h1>
+
+<input type="text" id="search" placeholder="Search song...">
+
+<div id="playlist"></div>
+
+<div id="nowPlaying">
+  <h3>Now Playing:</h3>
+  <p id="currentSong">None</p>
+</div>
+
+<script>
+// Song Data
+const songs = [
+  {title: "Song A", artist: "Artist 1"},
+  {title: "Song B", artist: "Artist 2"},
+  {title: "Song C", artist: "Artist 3"}
+];
+
+// Display Songs
+function displaySongs(list) {
+  const playlist = document.getElementById("playlist");
+  playlist.innerHTML = "";
+
+  list.forEach(song => {
+    const div = document.createElement("div");
+    div.className = "song";
+    div.innerHTML = song.title + " - " + song.artist;
+
+    div.onclick = function() {
+      document.getElementById("currentSong").innerText =
+        song.title + " - " + song.artist;
+    };
+
+    playlist.appendChild(div);
+  });
+}
+
+// Search Function
+document.getElementById("search").oninput = function() {
+  const value = this.value.toLowerCase();
+
+  const filtered = songs.filter(s =>
+    s.title.toLowerCase().includes(value)
+  );
+
+  displaySongs(filtered);
+};
+
+// Initial Load
+displaySongs(songs);
+
+</script>
+
+</body>
+</html>
